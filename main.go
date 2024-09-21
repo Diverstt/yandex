@@ -1,15 +1,22 @@
 package main
 
 import (
-	"fmt"
+	"strings"
 )
 
-func main() {
-	nums := []int{1, 1, 1, 2, 2, 6, 5, 6}
-	occurrences := make(map[int]int)
+type UserCreateRequest struct {
+	FirstName string
+	Age       int
+}
 
-	for _, num := range nums {
-		occurrences[num]++
+func Validate(req UserCreateRequest) string {
+	err := strings.Contains(req.FirstName, " ")
+	if err == true || req.FirstName == "" {
+		return "invalid request"
 	}
-	fmt.Println(occurrences)
+	if req.Age <= 0 || req.Age > 150 {
+		return "invalid request"
+	}
+	return ""
+
 }
